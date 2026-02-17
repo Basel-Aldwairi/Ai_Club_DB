@@ -56,7 +56,6 @@ class Database:
         email = null_prevention(row['University Email Address'])
 
         phone = '+' + null_prevention(row['Phone Number'])
-        print(phone)
 
         gender = null_prevention(row['Gender'])
 

@@ -9,7 +9,7 @@ db = database.Database()
 
 # db.update_comunities_membership(basel_id, AAAI = True)
 
-data = db.get_comunity_members(AAAI=True)
+data = db.get_info(basel_id)
 print(data)
 
 # db.delete_students()
