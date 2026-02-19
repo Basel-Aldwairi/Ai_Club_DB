@@ -16,12 +16,14 @@ class Roles(Enum):
     PR_TEAM = 6
     WEB_TEAM = 7
     MEDIA_TEAM = 8
+    Technical_Team = 9
+    Professor = 10
 
 
 def null_prevention(raw_answer: str):
     raw_answer = str(raw_answer)
     if not raw_answer.strip() == '':
-        return raw_answer
+        return raw_answer.strip()
     else:
         return None
 
@@ -121,6 +123,11 @@ class Database:
 
         self.cursor.execute(sql, values)
 
+        while self.cursor.nextset():
+            pass
+
+        print(f'Added : {uni_id}')
+
 
     def insert_rows_from_sheets(self):
 
@@ -150,7 +157,7 @@ class Database:
         for row in row_values:
             uni_id = int(row['University ID'])
             if uni_id in existing_student_ids:
-                print(f'skipped {uni_id}')
+                # print(f'skipped {uni_id}')
                 continue
             self.insert_into_students_from_sheets(row)
 
@@ -175,7 +182,7 @@ class Database:
 
         print('Closesd Database')
 
-    def change_role(self, student_id, role):
+    def update_role(self, student_id, role):
         sql = f'''
                 UPDATE students
                 SET role_id = {role.value}
@@ -186,7 +193,7 @@ class Database:
 
         print(f'Changed role {student_id} to {role.name}')
 
-    def make_admin(self, student_id, role):
+    def update_admin(self, student_id, role):
         sql = f'''
                 INSERT INTO team_leaders
                 VALUES (%s, %s);
@@ -240,3 +247,20 @@ class Database:
         self.db.commit()
         print(f'Updated {student_id} membership : {AAAI = }, {IEEE = }')
 
+    def get_all_members(self):
+        sql = f'''
+                SELECT concat(first_name, ' ', last_name) as name, student_id , email, phone_number, git_hub, linkedin
+                FROM students;
+                '''
+        self.cursor.execute(sql)
+        data = self.cursor.fetchall()
+        return data
+
+    def get_roles(self):
+        sql = '''
+                SELECT *
+                FROM v_student_roles'''
+
+        self.cursor.execute(sql)
+        data = self.cursor.fetchall()
+        return data

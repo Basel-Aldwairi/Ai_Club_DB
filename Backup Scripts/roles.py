@@ -1,29 +1,6 @@
-import database
-
-basel_id = 20221502065
-yazan_id = 20222502096
-
+from src import database
 
 db = database.Database()
-
-
-# db.update_comunities_membership(basel_id, AAAI = True)
-
-# data = db.get_all_members()
-
-
-# data = db.get_comunity_members(IEEE=True)
-# db.delete_students()
-
-# db.insert_rows_from_sheets()
-#
-# data = db.get_roles()
-
-# for i, d in enumerate(data):
-#     print(f' name : {d[0]}, role : {d[1]}')
-
-# db.make_admin(20221502065, database.Roles.VICE_PRESIDENT)
-
 
 student_roles = [
     (20221502065, database.Roles.VICE_PRESIDENT), # Basel vp lead
@@ -39,7 +16,6 @@ student_roles = [
     # Hashem Finance lead
     # Profs
 ]
-
 
 
 for sr in student_roles:
